@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Fitness Tracker</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Log Workout</h2>
+            <form id="workout-form">
+                <label>Day:</label>
+                <input type="text" id="workout-day" placeholder="e.g., Chest Day"><br>
+                <label>Exercise:</label>
+                <input type="text" id="exercise" placeholder="e.g., Bench Press"><br>
+                <label>Sets:</label>
+                <input type="number" id="sets"><br>
+                <label>Reps:</label>
+                <input type="number" id="reps"><br>
+                <label>Weight (kg):</label>
+                <input type="number" id="weight"><br>
+                <button type="button" onclick="logWorkout()">Log Workout</button>
+            </form>
+            <div id="workout-log"></div>
+        </section>
+
+        <section>
+            <h2>Log Meal</h2>
+            <form id="meal-form">
+                <label>Meal:</label>
+                <input type="text" id="meal-name" placeholder="e.g., Chicken + Rice"><br>
+                <label>Calories:</label>
+                <input type="number" id="meal-calories"><br>
+                <button type="button" onclick="logMeal()">Log Meal</button>
+            </form>
+            <div id="meal-log"></div>
+        </section>
+
+        <section>
+            <h2>Daily Summary</h2>
+            <div id="summary"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
