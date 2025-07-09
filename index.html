@@ -1,80 +1,50 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <ul class="menu">
+      <li><button onclick="showSection('exercise')">Exercise</button></li>
+      <li><button onclick="showSection('meals')">Meals</button></li>
+      <li><button onclick="showSection('tracker')">Log/Tracker</button></li>
+    </ul>
+  </nav>
 
-export default function FitnessApp() {
-  const [menu, setMenu] = useState("exercise");
-  const [exerciseTab, setExerciseTab] = useState("chest");
+  <main>
+    <section id="exercise" class="hidden">
+      <h2>Exercise</h2>
+      <ul class="sub-menu">
+        <li><button onclick="loadExercise('chest')">Chest</button></li>
+        <li><button onclick="loadExercise('back')">Back</button></li>
+        <li><button onclick="loadExercise('shoulders')">Shoulders</button></li>
+        <li><button onclick="loadExercise('legs')">Legs</button></li>
+        <li><button onclick="loadExercise('core')">Core</button></li>
+      </ul>
+      <div id="exercise-content"></div>
+    </section>
 
-  const renderMenu = () => {
-    switch (menu) {
-      case "exercise":
-        return (
-          <div>
-            <div className="flex gap-2 mb-4 overflow-x-auto">
-              {["chest", "back", "shoulders", "legs", "core"].map((m) => (
-                <Button
-                  key={m}
-                  variant={exerciseTab === m ? "default" : "ghost"}
-                  onClick={() => setExerciseTab(m)}
-                >
-                  {m.charAt(0).toUpperCase() + m.slice(1)}
-                </Button>
-              ))}
-            </div>
-            <Card>
-              <CardContent className="p-4 text-white">
-                <p>Exercises for {exerciseTab} will go here.</p>
-              </CardContent>
-            </Card>
-          </div>
-        );
-      case "meal":
-        return (
-          <div className="space-y-4">
-            <Card>
-              <CardContent className="p-4 text-white">
-                <h2 className="text-xl font-bold mb-2">Meal Plan</h2>
-                <p>Your daily or weekly meal plan displayed here.</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-4 text-white">
-                <h2 className="text-xl font-bold mb-2">Meal Recipes</h2>
-                <p>Chicken, oats, yogurt-based meals, and more.</p>
-              </CardContent>
-            </Card>
-          </div>
-        );
-      case "log":
-        return (
-          <Card>
-            <CardContent className="p-4 text-white">
-              <h2 className="text-xl font-bold mb-2">Daily Log / Tracker</h2>
-              <p>Track your food, workouts, water, and weight loss progress here.</p>
-            </CardContent>
-          </Card>
-        );
-      default:
-        return null;
-    }
-  };
+    <section id="meals" class="hidden">
+      <h2>Meals</h2>
+      <ul class="sub-menu">
+        <li><button onclick="loadMealPlan()">Meal Plan</button></li>
+        <li><button onclick="loadMealRecipes()">Meal Recipes</button></li>
+      </ul>
+      <div id="meal-content"></div>
+    </section>
 
-  return (
-    <div className="min-h-screen bg-black text-white p-4">
-      <h1 className="text-2xl font-bold mb-4">Fitness Tracker</h1>
-      <div className="flex gap-2 mb-6">
-        {["exercise", "meal", "log"].map((m) => (
-          <Button
-            key={m}
-            variant={menu === m ? "default" : "ghost"}
-            onClick={() => setMenu(m)}
-          >
-            {m.charAt(0).toUpperCase() + m.slice(1)}
-          </Button>
-        ))}
+    <section id="tracker" class="hidden">
+      <h2>Log / Tracker</h2>
+      <div id="tracker-content">
+        <!-- Tracking info gets loaded here -->
       </div>
-      {renderMenu()}
-    </div>
-  );
-}
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
