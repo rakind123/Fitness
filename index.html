@@ -1,52 +1,80 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>Fitness Tracker</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Log Workout</h2>
-            <form id="workout-form">
-                <label>Day:</label>
-                <input type="text" id="workout-day" placeholder="e.g., Chest Day"><br>
-                <label>Exercise:</label>
-                <input type="text" id="exercise" placeholder="e.g., Bench Press"><br>
-                <label>Sets:</label>
-                <input type="number" id="sets"><br>
-                <label>Reps:</label>
-                <input type="number" id="reps"><br>
-                <label>Weight (kg):</label>
-                <input type="number" id="weight"><br>
-                <button type="button" onclick="logWorkout()">Log Workout</button>
-            </form>
-            <div id="workout-log"></div>
-        </section>
+export default function FitnessApp() {
+  const [menu, setMenu] = useState("exercise");
+  const [exerciseTab, setExerciseTab] = useState("chest");
 
-        <section>
-            <h2>Log Meal</h2>
-            <form id="meal-form">
-                <label>Meal:</label>
-                <input type="text" id="meal-name" placeholder="e.g., Chicken + Rice"><br>
-                <label>Calories:</label>
-                <input type="number" id="meal-calories"><br>
-                <button type="button" onclick="logMeal()">Log Meal</button>
-            </form>
-            <div id="meal-log"></div>
-        </section>
+  const renderMenu = () => {
+    switch (menu) {
+      case "exercise":
+        return (
+          <div>
+            <div className="flex gap-2 mb-4 overflow-x-auto">
+              {["chest", "back", "shoulders", "legs", "core"].map((m) => (
+                <Button
+                  key={m}
+                  variant={exerciseTab === m ? "default" : "ghost"}
+                  onClick={() => setExerciseTab(m)}
+                >
+                  {m.charAt(0).toUpperCase() + m.slice(1)}
+                </Button>
+              ))}
+            </div>
+            <Card>
+              <CardContent className="p-4 text-white">
+                <p>Exercises for {exerciseTab} will go here.</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case "meal":
+        return (
+          <div className="space-y-4">
+            <Card>
+              <CardContent className="p-4 text-white">
+                <h2 className="text-xl font-bold mb-2">Meal Plan</h2>
+                <p>Your daily or weekly meal plan displayed here.</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4 text-white">
+                <h2 className="text-xl font-bold mb-2">Meal Recipes</h2>
+                <p>Chicken, oats, yogurt-based meals, and more.</p>
+              </CardContent>
+            </Card>
+          </div>
+        );
+      case "log":
+        return (
+          <Card>
+            <CardContent className="p-4 text-white">
+              <h2 className="text-xl font-bold mb-2">Daily Log / Tracker</h2>
+              <p>Track your food, workouts, water, and weight loss progress here.</p>
+            </CardContent>
+          </Card>
+        );
+      default:
+        return null;
+    }
+  };
 
-        <section>
-            <h2>Daily Summary</h2>
-            <div id="summary"></div>
-        </section>
-    </main>
-    <script src="script.js"></script>
-</body>
-</html>
+  return (
+    <div className="min-h-screen bg-black text-white p-4">
+      <h1 className="text-2xl font-bold mb-4">Fitness Tracker</h1>
+      <div className="flex gap-2 mb-6">
+        {["exercise", "meal", "log"].map((m) => (
+          <Button
+            key={m}
+            variant={menu === m ? "default" : "ghost"}
+            onClick={() => setMenu(m)}
+          >
+            {m.charAt(0).toUpperCase() + m.slice(1)}
+          </Button>
+        ))}
+      </div>
+      {renderMenu()}
+    </div>
+  );
+}
